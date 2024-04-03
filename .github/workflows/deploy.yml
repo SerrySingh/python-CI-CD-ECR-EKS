@@ -24,6 +24,7 @@ jobs:
          sudo apt install awscli -y
          docker --version
          aws --version
+
       
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
