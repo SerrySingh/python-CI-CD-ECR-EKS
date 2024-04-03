@@ -37,13 +37,12 @@ jobs:
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/l1f8z0w2
 
       - name: Build Docker image
-        run : sudo docker build -t serrysingh .
-        
+        run : sudo docker build -t serrysingh:pyapp .
+
       - name: Tag Docker image
         run: |
-          docker tag serrysingh:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
-
+            docker tag serrysingh:pyapp ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
           
-     # - name: Push Docker image to ECR
-     #   run: |
-     #     docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
+      - name: Push Docker image to ECR
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
