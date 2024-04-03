@@ -1,4 +1,4 @@
-name: Deploy to Docker Hub
+name: Build + push
 
 on:
   push:
@@ -8,3 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 
+
+      - name: check
+        run: ls -l
