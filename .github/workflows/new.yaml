@@ -45,4 +45,4 @@ jobs:
           
       - name: Push Docker image to ECR
         run: |
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
+          docker push public.ecr.aws/l1f8z0w2/serrysingh:pyapp
