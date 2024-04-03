@@ -39,3 +39,4 @@ jobs:
         run: |
            aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/y5e1g5b5
            sudo docker tag pyapp:latest public.ecr.aws/y5e1g5b5/pyapp:latest
+           sudo docker push public.ecr.aws/y5e1g5b5/pyapp:latest
