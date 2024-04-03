@@ -21,7 +21,17 @@ jobs:
          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
          sudo apt update
          sudo apt install docker-ce -y
+         sudo apt install awscli -y
          docker --version
+         aws --version
+      
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:   # with is used for input and env used for environment variable
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: "us-east-1"  
 
-
+      - name: check s3
+        run: aws s3 ls
          
