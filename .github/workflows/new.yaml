@@ -39,10 +39,10 @@ jobs:
       - name: Build Docker image
         run : sudo docker build -t serrysingh .
         
-      - name: Tag Docker image
-        run: |
-          docker tag serrysingh:pyapp ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:latest
+      #- name: Tag Docker image
+      #  run: |
+      #    docker tag serrysingh:pyapp ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
           
-      - name: Push Docker image to ECR
-        run: |
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
+      #- name: Push Docker image to ECR
+      #  run: |
+      #    docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
