@@ -33,16 +33,32 @@ jobs:
       
           
       - name: Retrieve ECR Public authentication token and authenticate Docker client
+        id: ecr_login
         run: |
-          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/l1f8z0w2
+            LOGIN=$(aws ecr-public get-login-password --region us-east-1)
+            if [ -z "$LOGIN" ]; then
+            echo "::error::Failed to retrieve ECR login token"
+            exit 1
+            fi
+            echo "$LOGIN" | docker login --username AWS --password-stdin public.ecr.aws/l1f8z0w2
+
+      - name: Check ECR login status
+        run: |
+         if [ ${{ steps.ecr_login.exit_code }} -ne 0 ]; then
+          echo "::error::ECR login failed"
+          exit 1
+         else
+          echo "ECR login successful"
+          fi
 
       - name: Build Docker image
-        run : sudo docker build -t serrysingh:pyapp .
+        run: sudo docker build -t serrysingh:pyapp .
 
       - name: Tag Docker image
         run: |
             docker tag serrysingh:pyapp ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
-          
+  
       - name: Push Docker image to ECR
         run: |
-          docker push public.ecr.aws/l1f8z0w2/serrysingh:pyapp
+           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
+
