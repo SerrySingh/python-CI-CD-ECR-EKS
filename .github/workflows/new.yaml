@@ -60,5 +60,6 @@ jobs:
   
       - name: Push Docker image to ECR
         run: |
-           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
-
+               aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/l1f8z0w2 && \
+               docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/serrysingh:pyapp
+      
